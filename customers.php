@@ -3,7 +3,7 @@
     $host = "localhost";
     $user = "php_app";
     $password = "1234";
-    $database = "sql_hr";
+    $database = "sql_store";
     $connection = new mysqli($host, $user, $password, $database);
 
     if ($connection->connect_error) {
@@ -12,8 +12,7 @@
 
     echo "Connection successful!";
 
-    $sql = "SELECT e.employee_id, e.first_name, e.last_name, m.first_name AS manager_name FROM employees e
-            JOIN employees AS m ON m.employee_id = e.reports_to;";
+    $sql = "SELECT customer_id, first_name, last_name FROM customers";
     $result = $connection->query($sql);
 
 ?>
@@ -27,7 +26,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="customers.php"></a>
+    <a href="index.php"></a>
     <h1>Cutomers</h1>
 
     <?php
@@ -35,10 +34,9 @@
             echo "<ul>";
             while ($row = $result->fetch_assoc()) {
                 $customer = 
-                    $row["employee_id"] . ", " .  
+                    $row["customer_id"] . ", " .  
                     $row["first_name"] . ", " .
-                    $row["last_name"]. ", " .
-                    $row["manager_name"];
+                    $row["last_name"];
                     // $row["birth_date"] . ", " .
                     // $row["phone"] . ", " .
                     // $row["address"] . ", " .
@@ -52,8 +50,5 @@
             echo "No customers found.";
         }
     ?>
-
-
-
 </body>
 </html>
